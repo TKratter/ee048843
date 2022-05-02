@@ -1,11 +1,12 @@
 from typing import Tuple, Callable
 from sklearn.datasets import load_breast_cancer, load_svmlight_file
+from sklearn.preprocessing import normalize
 import numpy as np
 
 
 def get_breast_cancer_data_and_labels() -> Tuple[np.ndarray, np.ndarray]:
     bunch = load_breast_cancer()
-    x = bunch.data
+    x = normalize(bunch.data)
     y = bunch.target
     return x, y
 

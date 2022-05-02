@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 from ex1.scripts.plot_utils import plot_scores_dict
 
 
-def perform_rand_algorithm(x: np.ndarray, y: np.ndarray, query_num_list: List[int], save_path: Optional[str] = None,
-                           title: Optional[str] = None) -> Dict[str, List[float]]:
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=150)
+def perform_rand_algorithm(x_train: np.ndarray, y_train: np.ndarray, x_test: np.ndarray, y_test: np.ndarray,
+                           query_num_list: List[int], save_path: Optional[str] = None,
+                           title: Optional[str] = None, verbose: Optional[bool] = False) -> Dict[str, List[float]]:
     scores_dict = defaultdict(list)
     for kernel in ['linear', 'rbf']:
         for n in query_num_list:
@@ -22,7 +22,8 @@ def perform_rand_algorithm(x: np.ndarray, y: np.ndarray, query_num_list: List[in
             y_pred = clf.predict(x_test)
             scores_dict[kernel].append(1 - accuracy_score(y_test, y_pred))
 
-    plot_scores_dict(scores_dict=scores_dict, save_path=save_path, title=title)
+    if verbose:
+        plot_scores_dict(scores_dict=scores_dict, save_path=save_path, title=title)
 
     return scores_dict
 
