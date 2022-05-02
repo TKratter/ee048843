@@ -12,7 +12,7 @@ def get_breast_cancer_data_and_labels() -> Tuple[np.ndarray, np.ndarray]:
 
 
 def get_diabetes_data_and_labels() -> Tuple[np.ndarray, np.ndarray]:
-    return load_svmlight_file('diabetes_scaled.txt')
+    return load_svmlight_file('/home/tomk42/PycharmProjects/ee048843/ex1/datasets/diabetes_scaled.txt')
 
 
 def _get_data_and_labels_from_loader_func(loader_func: Callable) -> Tuple[np.ndarray, np.ndarray]:
