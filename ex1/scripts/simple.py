@@ -11,15 +11,16 @@ from ex1.scripts.plot_utils import plot_scores_dict
 
 
 def perform_simple_algorithm(x_train: np.ndarray, y_train: np.ndarray, x_test: np.ndarray, y_test: np.ndarray,
+                             linear_params: dict, rbf_params: dict,
                              save_path: Optional[str] = None, title: Optional[str] = None,
                              verbose: Optional[bool] = False) -> Dict[str, List[float]]:
     query_num = 20
     scores_dict = defaultdict(list)
-    for kernel in ['linear', 'rbf']:
+    for params in [linear_params, rbf_params]:
         current_x_train, current_y_train = x_train[:5], y_train[:5]
         y_train_indices = list(range(5))
         while len(y_train_indices) <= 290:
-            clf = SVC(kernel=kernel)
+            clf = SVC(kernel=params['kernel'])
             clf.fit(current_x_train, current_y_train)
 
             candidates_distances = np.abs(clf.decision_function(x_train))
@@ -31,7 +32,7 @@ def perform_simple_algorithm(x_train: np.ndarray, y_train: np.ndarray, x_test: n
 
             y_pred = clf.predict(x_test)
 
-            scores_dict[kernel].append(1 - accuracy_score(y_test, y_pred))
+            scores_dict[params['kernel']].append(1 - accuracy_score(y_test, y_pred))
     if verbose:
         plot_scores_dict(scores_dict=scores_dict, save_path=save_path, title=title)
 
