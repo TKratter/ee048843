@@ -7,7 +7,8 @@ from tqdm import tqdm
 from ex1.config import synthetic_dims
 from ex1.datasets.libsvm_datasets import get_diabetes_data_and_labels, get_breast_cancer_data_and_labels
 from ex1.datasets.shuffle import shuffle_dataset
-from ex1.datasets.synthetic_data_generation import create_dataset_by_dimention
+from ex1.datasets.synthetic_data_generation import create_dataset_by_dimention, \
+    create_poor_performance_dataset_for_simple
 from ex1.scripts.plot_utils import plot_mean_result_of_both_algorithms, plot_all_results_for_dataset
 from ex1.scripts.rand import perform_rand_algorithm, perform_rand_algorithm_loo
 from ex1.scripts.simple import perform_simple_algorithm, perform_simple_algorithm_loo
@@ -17,9 +18,10 @@ save_path = None
 synthetic_loader_list = [lambda: create_dataset_by_dimention(dim) for dim in synthetic_dims]
 synthetic_names_list = [f'synthetic dataset dim {dim}' for dim in synthetic_dims]
 
-loaders_list = synthetic_loader_list + [get_diabetes_data_and_labels, get_breast_cancer_data_and_labels]
+loaders_list = synthetic_loader_list + [get_diabetes_data_and_labels, get_breast_cancer_data_and_labels,
+                                        create_poor_performance_dataset_for_simple]
 
-dataset_names_list = synthetic_names_list + ['diabetes', 'breast_cancer']
+dataset_names_list = synthetic_names_list + ['diabetes', 'breast_cancer', 'hard']
 
 for loader_func, dataset_name in zip(loaders_list, dataset_names_list):
     x, y = loader_func()

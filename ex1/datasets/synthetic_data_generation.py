@@ -28,3 +28,12 @@ def create_dataset_of_two_gaussians(mean1: np.ndarray, cov_mat1: np.ndarray,
 
 def sample_from_normal_distribution(mean: np.ndarray, cov_mat: np.ndarray, n_samples: int) -> np.ndarray:
     return np.random.multivariate_normal(mean=mean, cov=cov_mat, size=n_samples)
+
+
+def create_poor_performance_dataset_for_simple():
+    """simple is expected to perform poorly on unbalanced datasets"""
+    x = np.random.randn(600, 1)
+    y = (x > 2).flatten().astype(int)
+    return x, y
+
+
